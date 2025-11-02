@@ -17,12 +17,12 @@ export const createCheckoutSession = async (
   cancelUrl: string
 ) => {
   const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-  
+
   if (sessionError || !session?.access_token) {
     throw new Error('User not authenticated');
   }
 
-  const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/stripe-checkout`;
+  const apiUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/stripe-checkout`;
   
   const response = await fetch(apiUrl, {
     method: 'POST',
